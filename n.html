@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight Price Prediction</title>
+    <script>
+        async function getPrediction(event) {
+            event.preventDefault();
+
+            const data = {
+                airline: document.getElementById("airline").value,
+                source_city: document.getElementById("source_city").value,
+                departure_time: document.getElementById("departure_time").value,
+                stops: document.getElementById("stops").value,
+                arrival_time: document.getElementById("arrival_time").value,
+                destination_city: document.getElementById("destination_city").value,
+                class: document.getElementById("class").value,
+                departure_date: document.getElementById("departure_date").value
+            };
+
+            const response = await fetch("http://127.0.0.1:5000/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                document.getElementById("result").innerText = "Predicted Price: ₹" + result.prediction;
+            } else {
+                document.getElementById("result").innerText = "Error: " + result.error;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Flight Price Prediction</h2>
+    <form onsubmit="getPrediction(event)">
+        <label>Airline:</label>
+        <select id="airline">
+            <option>AirAsia</option>
+            <option>Indigo</option>
+            <option>GO_FIRST</option>
+            <option>SpiceJet</option>
+            <option>Air_India</option>
+            <option>Vistara</option>
+        </select><br><br>
+
+        <label>Source City:</label>
+        <select id="source_city">
+            <option>Delhi</option>
+            <option>Hyderabad</option>
+            <option>Bangalore</option>
+            <option>Mumbai</option>
+            <option>Kolkata</option>
+            <option>Chennai</option>
+        </select><br><br>
+
+        <label>Departure Time:</label>
+        <select id="departure_time">
+            <option>Early_Morning</option>
+            <option>Morning</option>
+            <option>Afternoon</option>
+            <option>Evening</option>
+            <option>Night</option>
+            <option>Late_Night</option>
+        </select><br><br>
+
+        <label>Stops:</label>
+        <select id="stops">
+            <option>zero</option>
+            <option>one</option>
+            <option>two_or_more</option>
+        </select><br><br>
+
+        <label>Arrival Time:</label>
+        <select id="arrival_time">
+            <option>Early_Morning</option>
+            <option>Morning</option>
+            <option>Afternoon</option>
+            <option>Evening</option>
+            <option>Night</option>
+            <option>Late_Night</option>
+        </select><br><br>
+
+        <label>Destination City:</label>
+        <select id="destination_city">
+            <option>Delhi</option>
+            <option>Hyderabad</option>
+            <option>Mumbai</option>
+            <option>Bangalore</option>
+            <option>Chennai</option>
+            <option>Kolkata</option>
+        </select><br><br>
+
+        <label>Class:</label>
+        <select id="class">
+            <option>Economy</option>
+            <option>Business</option>
+        </select><br><br>
+
+        <label>Departure Date:</label>
+        <input type="date" id="departure_date" required><br><br>
+
+        <button type="submit">Predict Price</button>
+    </form>
+
+    <h3 id="result"></h3>
+</body>
+</html>
