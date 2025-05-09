@@ -1,4 +1,4 @@
-# ✈️ Flight Price Prediction
+# ✈️ Flight Price Prediction.
 
 This web application predicts the price of a flight ticket based on various input features such as airline, source and destination cities, departure/arrival times, number of stops, travel class, and departure date. The app is built using **HTML (Frontend)** and **Flask (Backend)**, and utilizes a trained machine learning model for the prediction logic.
 
